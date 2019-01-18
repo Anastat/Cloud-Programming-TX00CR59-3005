@@ -4,9 +4,12 @@ window.onload = function () {
 
 
     function init() {
+
+
         document.getElementById("form").addEventListener("submit", (event) => {
             event.preventDefault();
-            let value = document.getElementById("number").value
+
+            let value = document.getElementById("number").value;
             //console.log(value, targetNumber)
             check(value);
         })
@@ -20,17 +23,20 @@ window.onload = function () {
     }
 
     function showWin() {
-        console.log("The right number! You win!")
+        document.getElementById("form").style.visibility = "hidden";
+        document.getElementById("message").innerHTML = "The right number! You win!";
     }
 
     function showError() {
-        console.log("Your guess is incorrect")
+        document.getElementById("message").innerHTML = "Your guess is incorrect. Try again...";
         count++;
+        document.getElementById("form").reset();
         //console.log(count)
     }
 
     function showLoss() {
-        console.log("Sorry, you lose...")
+        document.getElementById("form").style.visibility = "hidden";
+        document.getElementById("message").innerHTML = "Sorry, you lose...";
     }
 
     init();
