@@ -1,4 +1,5 @@
- This repository contains Metropolia UAS Cloud programming TX00CR59-3005 course lab exercises.
+ This repository contains Metropolia UAS Cloud programming TX00CR59-3005 course completed exercises.
+ https://github.com/erja/Cloudpro
  
  Week 1: JavaScript Basics<br/>
  Week 2: Asynchronous JavaScript<br/>
