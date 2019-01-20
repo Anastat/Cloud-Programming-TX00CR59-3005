@@ -40,7 +40,7 @@ function addTask() {
 
 //Remove dublicates from task list
 function removeDuplicates () {
-    let newTasks = [...new Set(tasks)];
+    let newTasks = [...new Set(tasks)];//create new array without dublicates
     //console.table(newTasks);
     let output = document.getElementById('output');
     output.innerHTML= "";
