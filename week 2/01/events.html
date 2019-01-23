@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> Handling events in IE8 and earlier </title>
+  <style>
+	span {
+		cursor: pointer;
+	}
+    div {
+        border-style: solid;
+        cursor: pointer;
+        margin: 2em;
+    }
+  </style>
+  <script>
+window.onload = function() {
+	var div = document.getElementById("clickme");
+    let divChoose = document.getElementById("chooseMe");
+	if (div.addEventListener) {
+		div.addEventListener("click", handleClick, false);
+        
+	} else if (div.attachEvent) {
+		div.attachEvent("click", handleClick);
+        
+	}
+    if (divChoose.addEventListener) {
+        divChoose.addEventListener("click", handleClick, false);
+        divChoose.addEventListener("mousemove", handleMouse, false);
+    } else if (divChoose.attachEvent) {
+        divChoose.addEventListener("click", handleClick);
+        divChoose.addEventListener("mousemove", handleMouse)
+    }
+};
+function handleClick(e) {
+	var evt = e || window.event;
+	var target;
+	if (evt.target) {
+		target = evt.target;
+	} else {
+		target = evt.srcElement;
+	}
+	alert("You clicked on " + target.id);
+}
+function handleMouse(e) {
+    let event = e || window.event;
+    let targetMouse;
+    if (event.targetMouse) {
+        targetMouse = event.targetMouse;
+    } else {
+        targetMouse = event.srcElement;
+    }
+    alert("You move over ", targetMouse.id);
+}
+  </script>
+</head>
+<body>
+<span id="clickme">Click me!</span>
+<div id="chooseMe">Choose me!</div>
+</body>
+</html>
