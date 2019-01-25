@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> JSON </title>
+    <script>
+        window.onload = function () {
+            var fidoString = '{ "name": "Fido", "breed": "Mixed", "weight": 38 }';
+            var fido = JSON.parse(fidoString);
+            console.log("We have made a dog out of a string! " + fido.name);
+            var fido2 = {
+                name: "Fido",
+                breed: "Mixed",
+                weight: 38
+            };
+            let animal = {
+                breed: {
+                    latin: "Boidae",
+                    swedish: "Jätteorm"
+                },
+                sound: "none"
+            }
+            var fidoString = JSON.stringify(fido2);
+            console.log("We made a string from a dog! " + fidoString);
+            //Convert your object to a JSON string 
+            let animalStr = JSON.stringify(animal);
+            document.getElementById("animal").innerHTML = animalStr;
+            //Convert the string back to a JS object 
+            let animalObj = JSON.parse(animalStr);
+            let animalBreed = animalObj.breed;
+            //Stringify the new subobject and display it in another <div> elsewhere on the page.
+            document.getElementById("changes").innerHTML = JSON.stringify(animalBreed);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="animal"></div>
+    <div id="changes"></div>
+</body>
+
+</html>
