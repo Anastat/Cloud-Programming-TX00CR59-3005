@@ -54,13 +54,15 @@ window.onload = function () {
     //translation from eng to fin
     function translation(word) {
         let newUrl = `https://glosbe.com/gapi/translate?from=eng&dest=fin&format=json&phrase=${word}&pretty=true`;
-        let result = getJsonSync(newUrl);
-        console.log(result.tuc.length);
+        let translation = getJsonSync(newUrl);
+        //console.log(translation);
+        let result = (translation.tuc.length > 0) ? translation.tuc[0].phrase.text : "not found";
+        //console.log(result);
     }
 
     //double click on word
     function get_selection() {
-        var txt = '';
+        let txt = '';
         if (window.getSelection) {
             txt = window.getSelection();
         } else if (document.getSelection) {
@@ -72,9 +74,17 @@ window.onload = function () {
     }
 
     $(document).dblclick(function (e) {
-        var word = get_selection();
+        let text = get_selection();
+        let word = text.toString().toLowerCase().trim();
         translation(word);
     });
+
+    //add word dictionary list to DOM
+
+    function addDicLIst (word, translation) {
+        let listDiv = document.getElementById('dictList');
+        listDiv.innerHTML = `(eng) ${word} - (fin) ${translation} <br>`
+    }
 
     // ******* 
     // DOM STUFF
