@@ -51,13 +51,14 @@ window.onload = function () {
         return JSON.parse(getSync(url));
     }
 
-    //translation from eng to fin
+    //translation from English to Finnish
     function translation(word) {
         let newUrl = `https://glosbe.com/gapi/translate?from=eng&dest=fin&format=json&phrase=${word}&pretty=true`;
         let translation = getJsonSync(newUrl);
         //console.log(translation);
-        let result = (translation.tuc.length > 0) ? translation.tuc[0].phrase.text : "not found";
+        let result = (translation.tuc[0].phrase !== undefined) ? translation.tuc[0].phrase.text : "not found";
         //console.log(result);
+        addDicList(word, result);
     }
 
     //double click on word
@@ -78,13 +79,15 @@ window.onload = function () {
         let word = text.toString().toLowerCase().trim();
         translation(word);
     });
-
-    //add word dictionary list to DOM
-
-    function addDicLIst (word, translation) {
+    //Add word and translation to Word dictionary list
+    function addDicList(word, translation) {
         let listDiv = document.getElementById('dictList');
-        listDiv.innerHTML = `(eng) ${word} - (fin) ${translation} <br>`
+        let listElem = document.createElement('LI');
+        let text = document.createTextNode(`(eng) ${word} - (fin) ${translation}`)
+        listElem.appendChild(text);
+        listDiv.appendChild(listElem);
     }
+
 
     // ******* 
     // DOM STUFF
