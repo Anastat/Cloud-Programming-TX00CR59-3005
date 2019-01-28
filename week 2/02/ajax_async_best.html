@@ -20,12 +20,12 @@
     <script>
         // Use Github Gist when no web server is available
         // getJson('https://gist.githubusercontent.com/c0lin/571d38b984d41b44aacf/raw/story.json').then(function(story) {
-        getJson('data/story.json').then(function (story) {
+        getJson('./01/data/story.json').then(function (story) {
             addHtmlToPage(story.heading);
 
             // Update URLs for next fetch
             story.chapterUrls = story.chapterUrls.map(function (url) {
-                return "data/" + url;
+                return "./01/data/" + url;
             });
             // Map our array of chapter urls
             // to an array of chapter json promises
