@@ -31,6 +31,18 @@
                             return getJson('./01/data/' + chapterUrl);
                         })
                         .then(function (chapter) {
+                            //ask the user wishes to continue downloading the next chapter
+                            let answer = confirm(
+                                "Do you wish to continue downloading the next chapter?");
+                            if (answer == false) {
+                                let err = {
+                                    message: "User aborted download"
+                                };
+                                throw (err);
+                            }
+                            return chapter;
+                        })
+                        .then(function (chapter) {
                             // and add it to the page
                             addHtmlToPage(chapter.html);
                         });
