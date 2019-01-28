@@ -21,7 +21,20 @@
         // Use Github Gist when no web server is available
         // getJson('https://gist.githubusercontent.com/c0lin/571d38b984d41b44aacf/raw/story.json').then(function(story) {
         getJson('./01/data/story.json')
+            .then(function (story) {
+                return new Promise(function (resolve, reject) {
+                    let answer = confirm(
+                        "Do you want to keep the promise? \nOK - keep the promise \n CANCEL - break the promise"
+                    );
+                    if (answer) {
+                        return resolve(story);
+                    } else {
+                        let err = new Error("You break the promise");
+                        reject(err);
+                    }
+                })
 
+            })
             .then(function (story) {
                 addHtmlToPage(story.heading);
 
