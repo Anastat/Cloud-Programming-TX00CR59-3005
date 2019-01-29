@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+    <script src="logic.js"></script>
+    <style>
+        p,
+        input {
+            font-family: monospace;
+        }
+
+        p {
+            white-space: pre;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>x <input v-model="x"></p>
+        <p>y <input v-model="y"></p>
+        <p>---------------------</p>
+        <p>= <span v-text="result"></span></p>
+
+        <input type="button" v-on:click="multiplyBy" Value="Multiply" />
+        <input type="button" v-on:click="divideBy" Value="Divide" />
+    </div>
+</body>
+
+</html>
