@@ -23,6 +23,7 @@
         <p>y <input v-model="y"></p>
         <p>---------------------</p>
         <p>= <span v-text="result"></span></p>
+        <p>previous result: <span v-text="prev"></span></p>
 
         <input type="button" v-on:click="multiplyBy" Value="Multiply" />
         <input type="button" v-on:click="divideBy" Value="Divide" />
