@@ -23,20 +23,20 @@ function capitalise(string) {
     })
 }
 //write another function that capitalises the last letter in the string using the arrow function syntax.
-function capitalizeLast(string) {
+/*function capitalizeLast(string) {
     return new Promise((resolve, reject) => {
         const str = string.slice(0, -1) + string.slice(-1).toUpperCase()
         //reject('you string is to short')
         resolve(str)
     })
-}
+}*/
 /* this promise chain uses the 'traditional' syntax to declare anonymous functions. Notice that the is quite verbose. */
 function promise1(data) {
-    reverse(data).then(function (data) {
+    capitalise(data).then(function (data) {
         /* capitalise() returns a new promise. */
-        return capitalise(data)
+        return reverse(data)
     }).then(function (data) {
-        return capitalizeLast(data)
+        return capitalise(data)
     }).then(function (data) {
         console.log(data)
     }).catch(function (err) {
@@ -46,10 +46,10 @@ function promise1(data) {
 
 /* In this promise chain the anonymous functions have been defined using the new 'arrow' syntax. Notice that the syntax is far cleaner and more concise. */
 function promise2(data) {
-    reverse(data).then(data => {
-        return capitalise(data)
+    capitalise(data).then(data => {
+        return reverse(data)
     }).then(data => {
-        return capitalizeLast(data)
+        return capitalise(data)
     }).then(data => {
         console.log(data)
     }).catch((err) => {
@@ -59,18 +59,18 @@ function promise2(data) {
 
 /* In this third version we take advantage of the fact that when resolving a promise the return value is implicit so we don't need to include it. */
 function promise3(data) {
-    reverse(data)
+    capitalise(data)
+        .then(data => reverse(data))
         .then(data => capitalise(data))
-        .then(data => capitalizeLast(data))
         .then(data => console.log(data))
         .catch((e) => console.log('an error occurred: ' + e))
 }
 
 /* In this fourth version we eliminate the parameter to the second function. This only works if the second function takes a single parameter and its value is the returned object from the previous function. */
 function promise4(data) {
-    reverse(data)
+    capitalise(data)
+        .then(reverse)
         .then(capitalise)
-        .then(capitalizeLast)
         .then(data => console.log(data))
         .catch((e) => console.log('an error occurred: ' + e))
 }
