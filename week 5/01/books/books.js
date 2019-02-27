@@ -46,3 +46,16 @@ exports.add = bookId => {
 exports.bookCount = () => {
   return bookList.length
 }
+
+exports.delete = bookId => {
+  let index = bookList.indexOf(bookId);
+  if (bookId.length != 12) {
+    throw('bookId should be 12 character long')
+  }
+  if (index == -1) {
+    throw(`there is no book with id${bookId} in the list`)
+  }
+  bookList.splice(index, 1);
+  console.log(bookList)
+  return index;
+}
