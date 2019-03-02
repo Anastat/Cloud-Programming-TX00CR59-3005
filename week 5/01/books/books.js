@@ -29,6 +29,30 @@ exports.search = (query, callback) => {
   })
 }
 
+exports.describe = (id, callback) => {
+  if (id.length !== 12) {
+    callback(new Error ('invalid book id'))
+  }
+  const url = 'https://www.googleapis.com/books/v1/volumes'
+  const query_string = {q: id}
+  request.get({url: url, qs: query_string}, (err, res, body) => {
+    if (err) {
+      callback(new Error('error making google books request'))
+    }
+    const json = JSON.parse(body)
+  
+    const item = json.items
+    
+    if (item === undefined) {
+      callback(new Error('no book found'))
+      return
+    } 
+    const book = {id:item[0].id, title:item[0].volumeInfo.title, authors:item[0].volumeInfo.authors, description: item[0].volumeInfo.description}
+    
+    callback(null, book)
+  })
+}
+
 /* a synchronous function will either return data or throw an error */
 exports.add = bookId => {
   if (bookId.length != 12) {
@@ -53,9 +77,9 @@ exports.delete = bookId => {
     throw('bookId should be 12 character long')
   }
   if (index == -1) {
-    throw(`there is no book with id${bookId} in the list`)
+    throw(`there is no book with id ${bookId} in the list`)
   }
   bookList.splice(index, 1);
-  console.log(bookList)
+  //console.log(bookList)
   return index;
 }
