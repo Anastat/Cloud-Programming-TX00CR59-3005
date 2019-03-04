@@ -36,8 +36,8 @@ taxi.getFare('Broadgate, Coventry', function(data) {
 	console.timeEnd('short fare')
 })
 
-console.time('long fare');
+console.time('moreLong fare');
 taxi.getFare('Moresby Park', function(data) {
 	console.log(data)
-	console.timeEnd('long fare')
+	console.timeEnd('moreLong fare')
 })
