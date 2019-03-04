@@ -104,8 +104,20 @@ describe('Shopping List', function () {
 		const items = list.getAll()
 		expect(items[0].title).toBe('bread')
 	})
-	it('shold decrement and delete item', () => {
+	it('should decrement and delete item', () => {
 		list.decrement('butter', 1)
 		expect(list.count()).toBe(1)
+	})
+	it('can not add, if item is blank string', () => {
+		list.add('')
+		expect(list.count()).toBe(2)
+	})
+	it('can not decrement item if count more than quantity', () => {
+		list.decrement('bread', 3)
+		expect(list.getItem('bread').qty).toBe(2)
+	})
+	it('can not decrement item if count negative value', () => {
+		list.decrement('butter', -1)
+		expect(list.getItem('butter').qty).toBe(1)
 	})
 })
