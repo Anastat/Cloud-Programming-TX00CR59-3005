@@ -73,5 +73,39 @@ describe('Shopping List', function () {
 			expect(err.message).toBe('item not in list')
 		}
 	})
-
+	
+	it('should throw error if count underfined', () => {
+		try {
+			list.decrement('bread')
+			expect(true).toBe(false)
+		} catch(err) {
+			expect(err.message).toBe('function requires two parameters')
+		}
+	})
+	it('should throw error if item not in list', () => {
+		try {
+			list.decrement('milk', 1)
+			expect(true).toBe(false)
+		} catch(err) {
+			expect(err.message).toBe('item not in list')
+		}
+	})
+	it('should throw an error if count not a number', () => {
+		try {
+			list.decrement('bread', 'one')
+			expect(true).toBe(false)
+		} catch(err) {
+			expect(err.message).toBe('second parameter should be a number')
+		}
+	})
+	it('should decrement item count', () => {
+		list.decrement('bread', 1)
+		expect(list.getItem('bread').qty).toBe(1)
+		const items = list.getAll()
+		expect(items[0].title).toBe('bread')
+	})
+	it('shold decrement and delete item', () => {
+		list.decrement('butter', 1)
+		expect(list.count()).toBe(1)
+	})
 })
