@@ -43,6 +43,12 @@ exports.getByID = function(listID) {
   return {code:406, response:{status:'error', contentType:'application/json', message:'list not found', data: listID}}
 }
 
+exports.deleteLists = function() {
+  console.log('deleting lists');
+  lists = []
+  return {code:200, response:{status:'success', contentType:'application/json', message:'lists deleted', data: lists}}
+}
+
 /* This public property contains a function that returns an array containing summaries of each list stored. The summary contains the list name and also the URL of its full resource. This is an important feature of RESTful APIs. */
 exports.getAll = function(host) {
   console.log('getAll')

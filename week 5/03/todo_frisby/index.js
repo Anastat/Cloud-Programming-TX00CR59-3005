@@ -48,6 +48,14 @@ server.get('/lists/:listID', function(req, res) {
 	res.end()
 })
 
+server.del('/lists', function(req, res){
+	console.log('deleting all lists')
+	const data = lists.deleteLists()
+	res.setHeader('content-type', 'application/json')
+	res.send(data.code, data.response)
+	res.end()
+})
+
 /* This route points to the 'lists' collection. The POST method indicates that we indend to add a new resource to the collection. Any resource added to a collection using POST should be assigned a unique id by the server. This id should be returned in the response body. */
 server.post('/lists', function(req, res) {
 	console.log('adding a new list')
@@ -78,12 +86,11 @@ server.del('/lists/:listID', function(req, res) {
 
 const port = process.env.PORT || 8081;
 
-/*server.listen(port, function(err) {
+server.listen(port, function(err) {
 	if (err) {
 		console.error(err)
 	} else {
 		console.log('Mita ihmetta! App is ready at : ' + port)
 	}
-})*/
-
+})
 module.exports = server.listen(8081);
