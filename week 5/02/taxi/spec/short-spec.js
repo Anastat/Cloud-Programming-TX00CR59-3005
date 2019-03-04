@@ -14,17 +14,17 @@ describe('Short Route', function () {
 
 	it('should set Gulson Road, Coventry as the current location', function(done) {
 		taxi.setHome('Gulson Road, Coventry', function(data) {
-			expect(data.lat).toEqual(52.405899)
-			expect(data.lng).toEqual(-1.495929)
+			expect(data.lat).toEqual(52.405851)
+			expect(data.lng).toEqual(-1.496185)
 			done()
 		})
 	})
 
 	it('should calculate the fare to Coventry Cathedral', function(done) {
 		taxi.getFare('Coventry Cathedral', function(data) {
-			expect(data.distance).toEqual(1700)
-			expect(data.duration).toEqual(291)
-			expect(data.cost).toEqual(2.4)
+			expect(data.distance).toEqual(1666)
+			expect(data.duration).toEqual(303)
+			expect(data.cost).toEqual(2.62)
 			done()
 		})
 	})

@@ -6,16 +6,16 @@ var taxi = rewire('../modules/taxi')
 describe('Medium Length Route', function () {
 
 	/* the routedata comes from an external API that is not guaranteed to return consistent data. We substitute a different function for testing that returns a fixed object. */
-	/*taxi.__set__('getRouteData', function(start, end) {
+	taxi.__set__('getRouteData', function(start, end) {
 		console.log('MOCK 1')
 		const data = fs.readFileSync('spec/routedata/cov_war_uni.json', "utf8")
 		return JSON.parse(data)
-	})*/
+	})
 
 	it('should set Gulson Road, Coventry as the current location', function(done) {
 		taxi.setHome('Gulson Road, Coventry', function(data) {
-			expect(data.lat).toEqual(52.405899)
-			expect(data.lng).toEqual(-1.495929)
+			expect(data.lat).toEqual(52.405851)
+			expect(data.lng).toEqual(-1.496185)
 			done()
 		})
 	})
