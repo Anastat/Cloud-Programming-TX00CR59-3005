@@ -35,7 +35,14 @@ server.get('/lists', function(req, res) {
 	res.send(data.code, data.response)
 	res.end()
 })
-
+//delete all lists
+server.del('/lists', function(req, res){
+	console.log('deleting all lists')
+	const data = lists.deleteLists()
+	res.setHeader('content-type', 'application/json')
+	res.send(data.code, data.response)
+	res.end()
+})
 /* This route provides a URL for each list resource. It includes a parameter (indicated by a :). The string entered here is stored in the req.params object and can be used by the script. */
 server.get('/lists/:listID', function(req, res) {
 	console.log('getting a list based on its ID')

@@ -28,7 +28,11 @@ function validateJson(json) {
   /* otherwise return true */
   return true
 }
-
+exports.deleteLists = function() {
+  console.log('deleting lists');
+  lists = []
+  return {code:200, response:{status:'success', contentType:'application/json', message:'lists deleted', data: lists}}
+}
 /* This public property contains a function that is passed a resource id and returns the associated list. */
 exports.getByID = function(listID) {
   console.log('getById: '+listID)

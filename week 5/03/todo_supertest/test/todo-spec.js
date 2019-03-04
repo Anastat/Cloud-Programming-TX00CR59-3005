@@ -7,6 +7,18 @@ const should = require('should');
 const request = require('supertest');
 var server = require('../index.js'); //reference to you app.js file
 
+describe('DELETE /lists', function() {
+  it('delete lists', function (done) {
+    request('http://localhost:8080')
+        .delete('/lists')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200,'success')
+       // .expect('no lists found')
+        done();
+    });
+})
+
 describe('GET /lists', function () {
     it('get empty list', function (done) {
         request('http://localhost:8080')
