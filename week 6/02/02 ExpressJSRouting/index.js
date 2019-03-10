@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./multi-router/index.js');
+module.exports = require('./route-map/index.js');
