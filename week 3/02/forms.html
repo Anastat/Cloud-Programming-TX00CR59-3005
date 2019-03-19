@@ -1,9 +1,11 @@
 <html>
+
 <head>
   <title>Vue.js Pet Depot</title>
   <script src="https://unpkg.com/vue"></script>
-  <link rel="stylesheet" type="text/css" href="assets/css/app.css"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="assets/css/app.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
 </head>
 <div id="app">
   <header>
@@ -21,7 +23,7 @@
   <main>
     <div class="row">
       <div v-if="showProduct">
-        
+
         <p> This is empty at the moment.</p>
       </div>
       <div v-else>
@@ -36,7 +38,7 @@
                 <div class="form-group">
                   <div class="col-md-6">
                     <strong>First Name:</strong>
-					<input v-model="order.firstName" class="form-control" />
+                    <input v-model="order.firstName" class="form-control" />
                   </div>
                   <div class="col-md-6">
                     <strong>Last Name:</strong>
@@ -56,11 +58,11 @@
                     <strong>State:</strong>
                     <!--  bind  using v-model and v-for for a list of states -->
                     <select v-model="order.state">
-                        <option v-for="state in states" v-bind:value="state">
-                            {{ state }}
-                        </option>
+                      <option v-for="state in states" v-bind:value="state">
+                        {{ state }}
+                      </option>
                     </select>
-					
+
                   </div>
                 </div>
                 <div class="form-group">
@@ -71,18 +73,15 @@
                 </div>
                 <div class="form-group">
                   <div class="col-md-6 boxes">
-                    <input type="checkbox">
-                      <!--  bind -->
+                    <input type="checkbox" v-model="order.gift">
                     <label for="checkbox">Ship As Gift?</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="col-md-6 boxes">
-                    <input type="radio">
-                      <!--  bind -->
+                    <input type="radio" v-model="order.method" value="order.address">
                     <label for="home">Home</label>
-                    <input type="radio">
-                      <!--  bind -->
+                    <input type="radio" v-model="order.method" value="order.address">
                     <label for="business">Business</label>
                   </div>
                 </div>
@@ -113,122 +112,125 @@
   </main>
 
 </div>
-    <script type="text/javascript">
-    var APP_LOG_LIFECYCLE_EVENTS = true;
-    var webstore = new Vue({
-      el: '#app',
-      data: {
-        sitename: "Vue.js Pet Depot",
-        showProduct: true,
-        a: false,
-        states: {
-          AL: 'Alabama',
-          AK: 'Alaska',
-          AR: 'Arizona',
-          CA: 'California',
-          NV: 'Nevada'
-        },
-        order: {
-          firstName: '',
-          lastName: '',
-          address: '',
-          city: '',
-          zip: '',
-          state: '',
-          method: 'Home Address',
-          business: 'Business Address',
-          home: 'Home Address',
-          gift:'Send As A Gift',
-          sendGift: 'Send As A Gift',
-          dontSendGift: 'Do Not Send As A Gift'
-        },
-        product: {
-          id: 1001,
-          title: "Cat Food, 25lb bag",
-          description: "A 25 pound bag of <em>irresistible</em>, organic goodness for your cat.",
-          price: 2000,
-          image: "assets/images/product-fullsize.png",
-          availableInventory: 5
-        },
-        cart: []
+<script type="text/javascript">
+  var APP_LOG_LIFECYCLE_EVENTS = true;
+  var webstore = new Vue({
+    el: '#app',
+    data: {
+      sitename: "Vue.js Pet Depot",
+      showProduct: true,
+      a: false,
+      states: {
+        AL: 'Alabama',
+        AK: 'Alaska',
+        AR: 'Arizona',
+        CA: 'California',
+        NV: 'Nevada'
       },
-      methods: {
-        addToCart: function() {
-          this.cart.push( this.product.id );
-        },
-        showCheckout() {
-          this.showProduct = this.showProduct ? false: true;
-        },
-        submitForm() {
-          alert('Submitted');
+      order: {
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        zip: '',
+        state: '',
+        method: 'Home Address',
+        business: 'Business Address',
+        home: 'Home Address',
+        gift: 'Send As A Gift',
+        sendGift: 'Send As A Gift',
+        dontSendGift: 'Do Not Send As A Gift'
+      },
+      product: {
+        id: 1001,
+        title: "Cat Food, 25lb bag",
+        description: "A 25 pound bag of <em>irresistible</em>, organic goodness for your cat.",
+        price: 2000,
+        image: "assets/images/product-fullsize.png",
+        availableInventory: 5
+      },
+      cart: []
+    },
+    methods: {
+      addToCart: function () {
+        this.cart.push(this.product.id);
+      },
+      showCheckout() {
+        this.showProduct = this.showProduct ? false : true;
+      },
+      submitForm() {
+        alert('Submitted');
+      }
+    },
+    computed: {
+      cartItemCount() {
+        return this.cart.length || '';
+      },
+      canAddToCart() {
+        return this.product.availableInventory > this.cartItemCount;
+      }
+    },
+    filters: {
+      formatPrice(price) { //#B
+        if (!parseInt(price)) {
+          return "";
+        } //#C
+        if (price > 99999) { //#D
+          var priceString = (price / 100).toFixed(2); //#E
+          var priceArray = priceString.split("").reverse(); //#F
+          var index = 3; //#F
+          while (priceArray.length > index + 3) { //#F
+            priceArray.splice(index + 3, 0, ","); //#F
+            index += 4; //#F
+          } //#F
+          return "$" + priceArray.reverse().join(""); //#G
+        } else {
+          return "$" + (price / 100).toFixed(2); //#H
         }
-      },
-      computed: {
-        cartItemCount() {
-          return this.cart.length || '';
-        },
-        canAddToCart() {
-          return this.product.availableInventory > this.cartItemCount;
-        }
-      },
-      filters: {
-        formatPrice(price) {	//#B
-          if (!parseInt(price)) { return ""; }	//#C
-          if (price > 99999) {	//#D
-            var priceString = (price / 100).toFixed(2);	//#E
-            var priceArray = priceString.split("").reverse();	//#F
-            var index = 3;	//#F
-            while (priceArray.length > index + 3) {	//#F
-              priceArray.splice(index+3, 0, ",");	//#F
-              index += 4;	//#F
-            }	//#F
-            return "$" + priceArray.reverse().join("");	//#G
-          } else {
-            return "$" + (price / 100).toFixed(2);	//#H
-          }
-        }
-      },
-      beforeCreate: function() {	//#B
-    if (APP_LOG_LIFECYCLE_EVENTS) {	//#B
-      console.log("beforeCreate");	//#B
-    }	//#B
-  },	//#B
-  created: function() {	//#C
-    if (APP_LOG_LIFECYCLE_EVENTS) {	//#C
-      console.log("created");	//#C
-    }	//#C
-  },	//#C
-  beforeMount: function() {	//#D
-    if (APP_LOG_LIFECYCLE_EVENTS) {	//#D
-      console.log(" beforeMount");	//#D
-    }	//#D
-  },	//#D
-  mounted:  function() {	//#E
-    if (APP_LOG_LIFECYCLE_EVENTS) {	//#E
-      console.log(" mounted"); 	//#E
-    } 	//#E
-  },	//#E
-  beforeUpdate:  function() { 	//#F
-    if (APP_LOG_LIFECYCLE_EVENTS) { 	//#F
-      console.log("beforeUpdate"); 	//#F
-    } 	//#F
-  },	//#F
-  updated:  function() { 	//#G
-    if (APP_LOG_LIFECYCLE_EVENTS) { 	//#G
-      console.log("updated"); 	//#G
-    } 	//#G
-  },	//#G
-  beforeDestroyed:  function() { 	//#H
-    if (APP_LOG_LIFECYCLE_EVENTS) { 	//#H
-      console.log("beforeDestroyed "); 	//#H
-    } 	//#H
-  },	//#H
-  destroyed:  function() { 	//#I
-    if (APP_LOG_LIFECYCLE_EVENTS) { 	//#I
-      console.log("destroyed"); 	//#I
-    } 	//#I
-  }	//#I
-});
-    </script>
-  </body>
+      }
+    },
+    beforeCreate: function () { //#B
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#B
+        console.log("beforeCreate"); //#B
+      } //#B
+    }, //#B
+    created: function () { //#C
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#C
+        console.log("created"); //#C
+      } //#C
+    }, //#C
+    beforeMount: function () { //#D
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#D
+        console.log(" beforeMount"); //#D
+      } //#D
+    }, //#D
+    mounted: function () { //#E
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#E
+        console.log(" mounted"); //#E
+      } //#E
+    }, //#E
+    beforeUpdate: function () { //#F
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#F
+        console.log("beforeUpdate"); //#F
+      } //#F
+    }, //#F
+    updated: function () { //#G
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#G
+        console.log("updated"); //#G
+      } //#G
+    }, //#G
+    beforeDestroyed: function () { //#H
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#H
+        console.log("beforeDestroyed "); //#H
+      } //#H
+    }, //#H
+    destroyed: function () { //#I
+      if (APP_LOG_LIFECYCLE_EVENTS) { //#I
+        console.log("destroyed"); //#I
+      } //#I
+    } //#I
+  });
+</script>
+</body>
+
 </html>
