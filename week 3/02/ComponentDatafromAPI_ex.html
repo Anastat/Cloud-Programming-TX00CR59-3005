@@ -7,8 +7,8 @@
 </head>
 
 <body>
-    <div id="blog-post-demo" class="demo" v-bind:posts='posts'>
-        <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post>
+    <div id="blog-post-demo" class="demo">
+        <blog-post  v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post>
     </div>
     <script type="text/javascript">
         Vue.component('blog-post', {
@@ -23,7 +23,7 @@
     <div class="blog-post">
       <h3>{{ post.title }}</h3>
       <div v-html="post.body"></div>
-      <p>{{post.userName}}</p>
+      <div v-html="post.userName"></div>
     </div>
   `
         })
