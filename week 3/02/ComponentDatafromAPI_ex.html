@@ -31,7 +31,8 @@
             el: '#blog-post-demo',
             data: {
                 posts: [],
-                users: []
+                users: [],
+                postsFetch:[]
             },
             created: function () {
                 this.fetchData();
@@ -45,7 +46,7 @@
                             return response.json()
                         })
                         .then(function (data) {
-                            vm.posts = data
+                            vm.postsFetch = data
                             return fetch('https://jsonplaceholder.typicode.com/users')
                         })
                         .then(function (response) {
@@ -60,7 +61,7 @@
                         })
                 },
                 combine: function () {
-                    this.posts.map((post) => {
+                    this.postsFetch.map((post) => {
                         this.users.map((user) => {
                             if (post.userId === user.id) {
                                 post.userName = user.name;
